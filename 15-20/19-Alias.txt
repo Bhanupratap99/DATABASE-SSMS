@@ -1,1 +1,37 @@
+-- Use Database
+Use Alias_Tutorial_19
+
+
+
+
+-- Create Table
+CREATE TABLE Student 
+(
+    name VARCHAR(255),
+    rollno INT,
+    age INT
+);
+
+
+
+
+-- Insert in to the student 
+INSERT INTO Student (name, rollno, age)
+VALUES 
+('Bhanu', 1, 20),
+('Monu', 2, 22),
+('Tanu', 3, 21),
+('Anu', 4, 23);
+
+
+
+select * from Student
+
+
+
+-- displaying student data
+select  name as Student_Name , rollno as Roll_No , age as Age from Student;
+
+
+
 
