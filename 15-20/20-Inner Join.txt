@@ -1,1 +1,83 @@
+Create  database JOINS
+
+use JOINS
+
+CREATE TABLE Customer 
+(
+    customer_id INT PRIMARY KEY, ----------------same column in both the tables
+    customer_name NVARCHAR(255),
+    customer_email NVARCHAR(255)
+);
+
+INSERT INTO Customer (customer_id, customer_name, customer_email)
+VALUES
+    (1, 'John Doe', 'john.doe@example.com'),
+    (2, 'Jane Smith', 'jane.smith@example.com'),
+    (3, 'Alice Johnson', 'alice.johnson@example.com');
+
+
+CREATE TABLE Orders 
+(
+    order_ID INT PRIMARY KEY,
+    order_amount DECIMAL(10, 2),
+    customer_id INT, ----------------same column in both the tables
+    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)
+);
+
+
+INSERT INTO Orders (order_ID, order_amount, customer_id)
+VALUES
+    (101, 100.00, 1),
+    (102, 150.50, 2),
+    (103, 75.25, 1),
+    (104, 200.75, 3);
+
+
+select * from Customer
+select * from Orders
+
+-- APPLYING INNER JOIN ----atleast one column must be same in both tables
+SELECT * FROM Customer AS A
+INNER JOIN Orders AS B
+ON A.customer_id = B.customer_id;            --customer_id column => is same  in both table
+
+
+-- (i) Way to avoid selecting the same column twice 
+SELECT A.customer_id, A.customer_name, A.customer_email, B.order_ID, B.order_amount
+FROM Customer AS A
+INNER JOIN Orders AS B
+ON A.customer_id = B.customer_id;
+
+
+
+
+
+-- (ii) Another way to avoid selecting the same column twice 
+SELECT A.*, B.order_ID, B.order_amount
+FROM Customer AS A
+INNER JOIN Orders AS B
+ON A.customer_id = B.customer_id;
+
+
+-- Here (i) & (ii) display only the same values,  but if we add new values only to one table then INNER JOIN doesnot retun the newly inserted values because it is not common
+INSERT INTO Customer (customer_id, customer_name, customer_email)
+VALUES
+    (5, 'Bhanu', 'Bhanu@example.com'),
+    (6, 'Hanu', 'Hanu@example.com');
+
+
+
+
+
+
+-- NOTE: it will retun only the matched recoreds 
+select * from Customer
+select * from Orders
+
+-- APPLYING INNER JOIN ----atleast one column must be same in both tables
+SELECT A.customer_id, A.customer_name, A.customer_email, B.order_ID, B.order_amount
+FROM Customer AS A
+INNER JOIN Orders AS B
+ON A.customer_id = B.customer_id;        --customer_id column => is same  in both table
+
 
